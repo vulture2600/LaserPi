@@ -163,22 +163,14 @@ def getStatusRequest():
 
 ################################
 #program start:
-lcd.clear()
-lcd.color = white
-lcd.message = "SammyDoor\nin Python v1.0"
-time.sleep(2)
-lcd.clear()
-print("starting server.")
-updateScreen() #write screen upon startup
 
-GPIO.add_event_detect(motionSensor,    GPIO.BOTH, callback = motionSensorInterrupt, bouncetime = 5)
-GPIO.add_event_detect(breakBeamSensor, GPIO.BOTH, callback = beamSensorInterrupt,   bouncetime = 5)
+
+
 
 mainLoopThread = threading.Thread(target = mainLoop)
 mainLoopThread.start()
 
-readButtonsThread = threading.Thread(target = readButtons)
-readButtonsThread.start()
+
 
 #start server if not already running:
 test = os.popen('sudo netstat -lpn | grep :5000')
