@@ -1,0 +1,24 @@
+Instructions for setting up SammyDoor on a new Raspberry Pi:
+
+
+1) Install Raspbian OS Lite
+2) Enable all interfaces, i2c, oneWire, SPI, SSH, etc.
+3) Install FTP: sudo apt-get install vsftpd
+4) Install python 3: sudo apt-get install python3
+5) Install flask: sudo apt-get install python3-flask
+6) Install pip: sudo apt-get install python3-pip
+7) sudo pip3 install --upgrade setuptools
+8) sudo pip3 install --upgrade adafruit-python-shell
+9) 
+10) 
+11) 
+12) 
+13) 
+14) Install PiGpio: sudo apt-get install pigpio
+15) sudo apt-get install python-pigpio python3-pigpio
+16) Enable pigpiod: sudo systemctl enable pigpiod
+17) Flask-cors: sudo pip3 install -U flask-cors
+18) make LaserPi Dir: sudo mkdir LaserPi
+19) change permissions: sudo chmod 777 LaserPi
+20) 
+21) 
