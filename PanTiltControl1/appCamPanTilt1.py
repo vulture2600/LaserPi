@@ -13,7 +13,7 @@ from time import sleep
 from flask import Flask, render_template, request, Response
 
 # Raspberry Pi camera module (requires picamera package from Miguel Grinberg)
-from camera_pi import Camera
+#from camera_pi import Camera
 
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ panServoAngle = 90
 tiltServoAngle = 90
 
 panPin = 27
-tiltPin = 17
+tiltPin = 18
 
 @app.route('/')
 def index():
@@ -37,12 +37,12 @@ def index():
     return render_template('index.html', **templateData)
 
 
-def gen(camera):
-    """Video streaming generator function."""
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+#def gen(camera):
+ #   """Video streaming generator function."""
+ #   while True:
+ #       frame = camera.get_frame()
+ #      yield (b'--frame\r\n'
+ #              b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
 @app.route('/video_feed')
@@ -71,4 +71,4 @@ def move(servo, angle):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port =80, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port =5000, debug=True, threaded=True)
