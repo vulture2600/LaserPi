@@ -20,13 +20,15 @@ app = Flask(__name__)
 # Global variables definition and initialization
 global panServoAngle
 global tiltServoAngle
+global laserStatus
+global buzzerStatus
+
 panServoAngle = 90
 tiltServoAngle = 90
+laserStatus = "off"
+buzzerStatus = "off"
 
-panPin = 27
-tiltPin = 18
-laser   = 17
-buzzer  = 22
+
 
 @app.route('/')
 def index():
@@ -60,17 +62,47 @@ def move(servo, angle):
 	global tiltServoAngle
 	if servo == 'pan':
 		panServoAngle = int(angle)
-		os.system("python3 angleServoCtrl.py " + str(panPin) + " " + str(panServoAngle))
+		os.system("python3 angleServoCtrl.py " + "pan" + " " + str(panServoAngle))
 	if servo == 'tilt':
 		tiltServoAngle = int(angle)
-		os.system("python3 angleServoCtrl.py " + str(tiltPin) + " " + str(tiltServoAngle))
+		os.system("python3 angleServoCtrl.py " + "tilt" + " " + str(tiltServoAngle))
 	
 	templateData = {
-      'panServoAngle'	: panServoAngle,
-      'tiltServoAngle'	: tiltServoAngle
+    	'panServoAngle'	: panServoAngle,
+    	'tiltServoAngle': tiltServoAngle,
+    	'laserStatus'   : laserStatus,
+        'buzzerStatus'	: buzzerStatus
 	}
 	return render_template('index.html', **templateData)
+
+@app.route("/laser/<status>")
+def laserStatusChange (status):
+    global laserStatus
+    laserStatus = str(status)
+    os.system("python3 angleServoCtrl.py " + "laser " + str(laserStatus))
+    templateData = {
+          'panServoAngle' : panServoAngle,
+          'tiltServoAngle': tiltServoAngle,
+          'laserStatus'   : laserStatus,
+          'buzzerStatus'  : buzzerStatus          
+	}
+    return render_template('index.html', **templateData)
+    
+@app.route("/buzzer/<status>")
+def buzzerStatusChange (status):
+    global buzzerStatus
+    buzzerStatus = str(status)
+    os.system("python3 angleServoCtrl.py " + "buzzer " + str(buzzerStatus))
+    templateData = {
+          'panServoAngle' : panServoAngle,
+          'tiltServoAngle': tiltServoAngle,
+          'laserStatus'   : laserStatus,
+          'buzzerStatus'  : buzzerStatus	
+	}
+    return render_template('index.html', **templateData)
+    
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port =5000, debug=True, threaded=True)
+

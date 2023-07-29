@@ -12,8 +12,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 
-panServoPin           = 18
-tiltServoPin          = 27
+panServoPin           = 27
+tiltServoPin          = 18
 laser 				  = 22
 buzzer 				  = 17
 
