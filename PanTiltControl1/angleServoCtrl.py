@@ -2,7 +2,7 @@
 #
 #  Angle Servo Control 
 #  Execute with parameter ==> sudo python3 servoCtrl.py <servo GPIO> <servo_angle> 
-#
+#  Execute with parameter ==> sudo python3 servoCtrl.py <pan> <servo_angle> <tilt> <servo_angle>
 #  MJRoBot.org 01Feb18
 # just for testing.
   
@@ -11,9 +11,17 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+
 panServoPin           = 18
 tiltServoPin          = 27
+laser 				  = 22
+buzzer 				  = 17
 
+
+GPIO.setup(panServoPin, GPIO.OUT)
+GPIO.setup(tiltServoPin, GPIO.OUT)
+GPIO.setup(laser, GPIO.OUT)
+GPIO.setup(buzzer, GPIO.OUT)
 
 def setServoAngle(servo, angle):
 	assert angle >=30 and angle <= 150
@@ -26,7 +34,31 @@ def setServoAngle(servo, angle):
 
 if __name__ == '__main__':
 	import sys
-	servo = int(sys.argv[1])
-	GPIO.setup(servo, GPIO.OUT)
-	setServoAngle(servo, int(sys.argv[2]))
-	GPIO.cleanup()
+	for i in range (1, len(sys.argv)):
+		if sys.argv[i] == "pan":
+			setServoAngle(panServoPin, int(sys.argv[i + 1]))
+			
+		
+		if sys.argv[i] == "tilt":
+			setServoAngle(tiltServoPin, int(sys.argv[i + 1]))
+			
+
+		if sys.argv[i] == "laser":
+			if sys.argv[i + 1] == "on":
+				GPIO.output(laser, True)	
+
+			if sys.argv[i + 1] == "off":
+				GPIO.output(laser, False)
+
+		if sys.argv[i] == "buzzer":
+
+			if sys.argv[i + 1] == "on":
+				GPIO.output(buzzer, True)	
+
+			if sys.argv[i + 1] == "off":
+				GPIO.output(buzzer, False)
+
+
+
+
+

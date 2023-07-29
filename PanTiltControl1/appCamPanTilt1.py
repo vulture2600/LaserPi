@@ -25,6 +25,8 @@ tiltServoAngle = 90
 
 panPin = 27
 tiltPin = 18
+laser   = 17
+buzzer  = 22
 
 @app.route('/')
 def index():
