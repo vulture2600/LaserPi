@@ -12,6 +12,9 @@ import os
 from time import sleep
 from flask import Flask, render_template, request, Response
 
+import io
+import picamera
+
 # Raspberry Pi camera module (requires picamera package from Miguel Grinberg)
 #from camera_pi import Camera
 
